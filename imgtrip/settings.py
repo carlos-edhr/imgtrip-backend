@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 import mimetypes
+from django.urls import reverse_lazy
 
 # from decouple import config
 
@@ -35,6 +36,10 @@ if DEBUG:
 ALLOWED_HOSTS = ["mysite.com", "localhost", "127.0.0.1"]
 
 
+ABSOLUTE_URL_OVERRIDES = {
+    "auth.user": lambda u: reverse_lazy("user_detail", args=[u.username])
+}
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -51,6 +56,7 @@ INSTALLED_APPS = [
     "easy_thumbnails",
     # local
     "images.apps.ImagesConfig",
+    "actions.apps.ActionsConfig",
 ]
 
 MIDDLEWARE = [
